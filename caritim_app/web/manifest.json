@@ -1,6 +1,6 @@
 {
-    "name": "caritim_app",
-    "short_name": "caritim_app",
+    "name": "caritim",
+    "short_name": "caritim",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
