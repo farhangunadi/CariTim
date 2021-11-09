@@ -4,7 +4,7 @@ import 'package:cari_tim_flutter/ui/intro_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget { //
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
