@@ -1,3 +1,0 @@
-# caritim
-
-Project CariTim Aplication
