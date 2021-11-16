@@ -3,6 +3,7 @@ import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 
 class IntroScreen extends StatefulWidget {
+  //
   const IntroScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,9 +11,10 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  int _selectedContent = 0;
+  int _selectedContent = 0; //memulai dari content awal
 
   List<Map<String, String>> _listContent = [
+    //mapping array ngerutkan konten
     {
       "image": "assets/scene_1.png",
       "title": "Improve your skill with new team experience",
@@ -30,39 +32,50 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //struktur tampilan
       backgroundColor: CColor.whiteColor,
       body: SafeArea(
+        //supaya content tidak keluar widget
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width, //untuk mengatur lebar media
+          height:
+              MediaQuery.of(context).size.height, // untuk mengatur tinggi media
           child: Column(
+            //untuk mengatur vertikal widget
             children: [
               Container(
                 height: MediaQuery.of(context).size.height / 2,
                 child: Image.asset(
+                  //mengambil dari folder asset
                   _listContent[_selectedContent]["image"]!,
                   fit: BoxFit.fill,
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                //untuk mengatur horizontal widget
+                mainAxisAlignment:
+                    MainAxisAlignment.center, //menaruh konten ditengah
                 children: [
                   Container(
                     height: 5,
-                    width: _selectedContent == 0
-                        ? MediaQuery.of(context).size.width / 6.4
-                        : MediaQuery.of(context).size.width / 20,
+                    width: _selectedContent ==
+                            0 //untuk pilih konten untuk tampilkkan
+                        ? MediaQuery.of(context).size.width /
+                            6.4 // operator if else
+                        : MediaQuery.of(context).size.width /
+                            20, // operator if else
                     margin: EdgeInsets.symmetric(horizontal: 3),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: _selectedContent == 0
+                      borderRadius:
+                          BorderRadius.circular(5), //ukuran dari ituan
+                      color: _selectedContent == 0 //dimulai dari screen awal
                           ? CColor.orangeColor
                           : CColor.creamColor,
                     ),
                   ),
                   Container(
                     height: 5,
-                    width: _selectedContent == 1
+                    width: _selectedContent == 1 //untuk pilih konten
                         ? MediaQuery.of(context).size.width / 6.4
                         : MediaQuery.of(context).size.width / 20,
                     margin: EdgeInsets.symmetric(horizontal: 3),
@@ -136,7 +149,22 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             Expanded(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_selectedContent != 1) {
+                    //untuk memilih skip ke berapa
+                    setState(() {
+                      _selectedContent++; //ketika diklik akan lanjut 1 page
+                    });
+                  } else {
+                    Navigator.push(
+                        //untuk melanjutkan ke screen berikutnya
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              GetStartedScreen(), //screen dari get_started_screen
+                        ));
+                  }
+                },
                 child: Text(
                   "Skip Now",
                   style: TextStyle(
@@ -150,7 +178,7 @@ class _IntroScreenState extends State<IntroScreen> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  if (_selectedContent != 1) {
+                  if (_selectedContent != 0) {
                     setState(() {
                       _selectedContent++;
                     });
@@ -169,7 +197,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   ),
                 ),
                 child: Text(
-                  "Next",
+                  "Next", //sama ini untuk nextnya
                   style: TextStyle(
                     color: CColor.whiteColor,
                     fontSize: 15,

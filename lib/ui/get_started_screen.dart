@@ -13,7 +13,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CColor.whiteColor,
-      body: SafeArea(
+      body: SafeArea( //supaya tidak keluar widget
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

@@ -1,5 +1,6 @@
 import 'package:cari_tim_flutter/ui/get_started_screen.dart';
 import 'package:cari_tim_flutter/ui/intro_screen.dart';
+import 'package:cari_tim_flutter/ui/signup_screen.dart';
 import 'package:cari_tim_flutter/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: SignupScreen(),
     );
   }
 }
