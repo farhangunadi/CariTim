@@ -9,8 +9,10 @@ void main() {
   runApp(const MyApp()); //fungsi untuk menjalankan app
 }
 
-class MyApp extends StatelessWidget {  //class dari app yang menjalankan widget statis yang tidak bisa diubah hanya bisa dilihat
-  const MyApp({Key? key}) : super(key: key); //mendeklrasikan parameter dengan value
+class MyApp extends StatelessWidget {
+  //class dari app yang menjalankan widget statis yang tidak bisa diubah hanya bisa dilihat
+  const MyApp({Key? key})
+      : super(key: key); //mendeklrasikan parameter dengan value
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {  //class dari app yang menjalankan widget 
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SettingScreen(),
+      home: SplashScreen(),
     );
   }
 }
