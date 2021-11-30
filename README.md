@@ -1,10 +1,10 @@
 # cari_tim_frontend
 
-Projek CariTim
-Front End
+# Projek CariTim
+## Front End
 - Farhan Gunadi (140810190009)
 - Muhammad Alwan Fauzi (140810190077)
-Back End
+## Back End
 - Bagas Adi Firdaus (140810190037)
 - Aidil Fitra (140810190053)
 

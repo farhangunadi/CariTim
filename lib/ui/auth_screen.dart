@@ -1,6 +1,4 @@
 import 'package:cari_tim_flutter/util/c_color.dart';
-import 'package:cari_tim_flutter/model/api_service.dart';
-import 'package:cari_tim_flutter/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -14,21 +12,10 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   bool _obscurePassword = true;
 
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passController = new TextEditingController();
-  String message = 'not login';
-
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passController.dispose();
-    super.dispose();
   }
 
   @override
@@ -138,7 +125,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
-                                        controller: emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         decoration: InputDecoration(
@@ -173,7 +159,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
-                                        controller: passController,
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         obscureText: _obscurePassword,
@@ -228,51 +213,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: TextButton(
-                                        onPressed: () async {
-                                          var email = emailController.text;
-                                          var pass = passController.text;
-                                          setState(() {
-                                            message = 'Please Wait...';
-                                          });
-                                          var rsp =
-                                              await loginUser(email, pass);
-                                          print(rsp);
-                                          if (rsp.containsKey('data')) {
-                                            setState(() {
-                                              message = 'Login Success';
-                                            });
-                                            if (rsp['data'] != null) {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) {
-                                                return HomeScreen();
-                                              }));
-                                            }
-                                          } else {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                // return object of type Dialog
-                                                return AlertDialog(
-                                                  title:
-                                                      new Text("Login Failed"),
-                                                  content: new Text(
-                                                      "Email or password are not correct!"),
-                                                  actions: <Widget>[
-                                                    // usually buttons at the bottom of the dialog
-                                                    new TextButton(
-                                                      child: new Text("Close"),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          }
-                                        },
+                                        onPressed: () {},
                                         style: TextButton.styleFrom(
                                           backgroundColor: CColor.purpleColor,
                                           shape: RoundedRectangleBorder(
@@ -428,7 +369,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
-                                        keyboardType: TextInputType.name,
+                                        keyboardType:
+                                            TextInputType.name,
                                         decoration: InputDecoration(
                                           hintText: "Username",
                                           filled: true,
@@ -448,8 +390,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                     ),
                                     SizedBox(
                                       height: 21,
-                                    ),
-                                    Container(
+                                    ),Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         boxShadow: [
@@ -529,8 +470,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
+                                    ),SizedBox(
                                       height: 21,
                                     ),
                                     Container(

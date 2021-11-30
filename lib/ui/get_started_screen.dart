@@ -1,4 +1,3 @@
-import 'package:cari_tim_flutter/ui/auth_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +13,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CColor.whiteColor,
-      body: SafeArea(
-        //supaya tidak keluar widget
+      body: SafeArea( //supaya tidak keluar widget
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -99,13 +97,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             Container(
               width: MediaQuery.of(context).size.width,
               child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AuthScreen(),
-                      ));
-                },
+                onPressed: () {},
                 style: TextButton.styleFrom(
                   backgroundColor: CColor.purpleColor,
                   shape: RoundedRectangleBorder(
