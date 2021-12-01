@@ -1,3 +1,4 @@
+import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
 import 'package:cari_tim_flutter/ui/home_screen.dart';
@@ -13,9 +14,13 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   bool _obscurePassword = true;
+  late DataModel _dataModel;
 
   TextEditingController emailController = new TextEditingController();
   TextEditingController passController = new TextEditingController();
+  TextEditingController confpassController = new TextEditingController();
+  TextEditingController fnameController = new TextEditingController();
+  TextEditingController snameController = new TextEditingController();
   String message = 'not login';
 
   @override
@@ -428,9 +433,10 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
+                                        controller: fnameController,
                                         keyboardType: TextInputType.name,
                                         decoration: InputDecoration(
-                                          hintText: "Username",
+                                          hintText: "First Name",
                                           filled: true,
                                           fillColor: CColor.whiteColor,
                                           hintStyle: TextStyle(
@@ -461,6 +467,41 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
+                                        controller: snameController,
+                                        keyboardType: TextInputType.name,
+                                        decoration: InputDecoration(
+                                          hintText: "Surname",
+                                          filled: true,
+                                          fillColor: CColor.whiteColor,
+                                          hintStyle: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 11,
+                                            color: Color(0xff959595),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 21,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.25),
+                                            blurRadius: 17,
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextFormField(
+                                        controller: emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         decoration: InputDecoration(
@@ -495,6 +536,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
+                                        controller: passController,
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         obscureText: _obscurePassword,
@@ -545,6 +587,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ],
                                       ),
                                       child: TextFormField(
+                                        controller: confpassController,
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         obscureText: _obscurePassword,
@@ -596,10 +639,62 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
+                                    //regisButton
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          String fname = fnameController.text;
+                                          String sname = snameController.text;
+                                          String email = emailController.text;
+                                          String password = passController.text;
+
+                                          if (passController.text ==
+                                              confpassController.text) {
+                                            DataModel? data =
+                                                await registerData(fname, sname,
+                                                    email, password);
+                                            setState(() {
+                                              _dataModel =
+                                                  data.toString() as DataModel;
+                                            });
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                // return object of type Dialog
+                                                return AlertDialog(
+                                                  title: new Text(
+                                                      "OTP Authentication"),
+                                                  content: Column(
+                                                    children: [
+                                                      Text(
+                                                          "Please chek your email to see the OTP code"),
+                                                      TextField(
+                                                        decoration: InputDecoration(
+                                                            hintText:
+                                                                'Enter your OTP'),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  actions: <Widget>[
+                                                    // usually buttons at the bottom of the dialog
+                                                    new TextButton(
+                                                      child: new Text("Close"),
+                                                      onPressed: () {
+                                                        Navigator.push(context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) {
+                                                          return HomeScreen();
+                                                        }));
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+                                        },
                                         style: TextButton.styleFrom(
                                           backgroundColor: CColor.purpleColor,
                                           shape: RoundedRectangleBorder(

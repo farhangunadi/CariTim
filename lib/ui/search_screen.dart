@@ -32,7 +32,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back,
                         color: CColor.whiteColor,

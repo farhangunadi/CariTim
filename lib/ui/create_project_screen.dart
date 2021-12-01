@@ -31,7 +31,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back,
                         color: CColor.whiteColor,
@@ -95,14 +97,18 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: 7,
                   ),
                   DropdownSearch<String>(
-                    items: ["_listPrivileges"],
+                    items: [
+                      "Bussines project",
+                      "Competition Project",
+                      "Other Project"
+                    ],
                     validator: (item) {
                       if (item == null)
                         return "Required field";
                       else
                         return null;
                     },
-                    itemAsString: (item) => item,
+                    itemAsString: (item) => item.toString(),
                     onChanged: (value) {},
                     dropdownSearchDecoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(

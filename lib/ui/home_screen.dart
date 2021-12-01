@@ -1,5 +1,7 @@
+import 'package:cari_tim_flutter/ui/create_project_screen.dart';
 import 'package:cari_tim_flutter/ui/notification_screen.dart';
 import 'package:cari_tim_flutter/ui/profile_page.dart';
+import 'package:cari_tim_flutter/ui/search_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       } else if (index == 2) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NotificationScreen()),
+          MaterialPageRoute(builder: (context) => CreateProjectScreen()),
         );
       } else if (index == 3) {
         Navigator.push(
@@ -151,6 +153,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       child: TextField(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchScreen()),
+                          );
+                        },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
