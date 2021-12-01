@@ -1,3 +1,5 @@
+import 'package:cari_tim_flutter/ui/notification_screen.dart';
+import 'package:cari_tim_flutter/ui/profile_page.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,59 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController = ScrollController();
+
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Settings',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NotificationScreen()),
+        );
+      } else if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NotificationScreen()),
+        );
+      } else if (index == 3) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NotificationScreen()),
+        );
+      } else if (index == 4) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NotificationScreen()),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +119,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 8,
-                          height: MediaQuery.of(context).size.width / 8,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.25),
-                                blurRadius: 5,
-                              ),
-                            ],
+                        RawMaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage()),
+                            );
+                          },
+                          fillColor: Colors.white,
+                          child: Image.asset(
+                            'assets/user1.png',
+                            width: 60,
+                            height: 60,
                           ),
-                        ),
+                          shape: CircleBorder(),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -247,7 +304,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: CColor.whiteColor,
                               ),
                             ),
-                            SizedBox(height: 4,),
+                            SizedBox(
+                              height: 4,
+                            ),
                             RichText(
                               text: TextSpan(
                                 text: "Team Name : ",
@@ -268,7 +327,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 3,),
+                            SizedBox(
+                              height: 3,
+                            ),
                             RichText(
                               text: TextSpan(
                                 text: "Note : ",
@@ -279,7 +340,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: "Dicari Frontend dev dengan kempaun dalam mengoperasikan React JS",
+                                    text:
+                                        "Dicari Frontend dev dengan kempaun dalam mengoperasikan React JS",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 10,
@@ -316,6 +378,38 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Project',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add Project',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Chat',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_on),
+            label: 'Notification',
+            backgroundColor: Colors.red,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
   }
