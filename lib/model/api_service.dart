@@ -11,7 +11,7 @@ Future loginUser(String email, String password) async {
   return convertedDatatoJson;
 }
 
-Future<DataModel?> registerData(
+Future registerData(
     String fname, String sname, String email, String password) async {
   final response = await http.post(Uri.parse(url + '/users'), headers: {
     "Accept": "Application/json"
@@ -21,12 +21,16 @@ Future<DataModel?> registerData(
     'email': email,
     'password': password
   });
-  var data = response.body;
-  print(data);
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
+}
 
-  if (response.statusCode == 200) {
-    String responseString = response.body;
-    dataModelFromJson(responseString);
-  } else
-    return null;
+Future verifyOTP(String code) async {
+  final response = await http.post(Uri.parse(url + '/users/verify'), headers: {
+    "Accept": "Application/json"
+  }, body: {
+    'code': code,
+  });
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
 }

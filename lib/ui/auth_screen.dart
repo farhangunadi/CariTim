@@ -1,4 +1,5 @@
 import 'package:cari_tim_flutter/model/DataModel.dart';
+import 'package:cari_tim_flutter/ui/otp_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
 import 'package:cari_tim_flutter/ui/home_screen.dart';
@@ -649,44 +650,40 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                           String email = emailController.text;
                                           String password = passController.text;
 
-                                          if (passController.text ==
-                                              confpassController.text) {
-                                            DataModel? data =
-                                                await registerData(fname, sname,
-                                                    email, password);
+                                          setState(() {
+                                            message = 'Please Wait...';
+                                          });
+                                          var rsp = await registerData(
+                                              fname, sname, email, password);
+                                          print(rsp);
+                                          if (rsp.containsKey('data')) {
                                             setState(() {
-                                              _dataModel =
-                                                  data.toString() as DataModel;
+                                              message = 'Register Success';
                                             });
+                                            if (rsp['data'] != null) {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                                return OTPscreen();
+                                              }));
+                                            }
+                                          } else {
                                             showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
                                                 // return object of type Dialog
                                                 return AlertDialog(
                                                   title: new Text(
-                                                      "OTP Authentication"),
-                                                  content: Column(
-                                                    children: [
-                                                      Text(
-                                                          "Please chek your email to see the OTP code"),
-                                                      TextField(
-                                                        decoration: InputDecoration(
-                                                            hintText:
-                                                                'Enter your OTP'),
-                                                      )
-                                                    ],
-                                                  ),
+                                                      "Register Failed"),
+                                                  content: new Text(
+                                                      "Please try again!"),
                                                   actions: <Widget>[
                                                     // usually buttons at the bottom of the dialog
                                                     new TextButton(
                                                       child: new Text("Close"),
                                                       onPressed: () {
-                                                        Navigator.push(context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) {
-                                                          return HomeScreen();
-                                                        }));
+                                                        Navigator.of(context)
+                                                            .pop();
                                                       },
                                                     ),
                                                   ],

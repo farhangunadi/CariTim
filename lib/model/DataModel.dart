@@ -14,18 +14,21 @@ class DataModel {
     this.surname = "",
     this.email = "",
     this.password = "",
+    this.code = "",
   });
 
   String firstName;
   String surname;
   String email;
   String password;
+  String code;
 
   factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
         firstName: json["first_name"],
         surname: json["surname"],
         email: json["email"],
         password: json["password"],
+        code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +36,6 @@ class DataModel {
         "surname": surname,
         "email": email,
         "password": password,
+        "code": code,
       };
 }
