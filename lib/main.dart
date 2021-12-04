@@ -5,6 +5,7 @@ import 'package:cari_tim_flutter/ui/intro_screen.dart';
 import 'package:cari_tim_flutter/ui/notification_screen.dart';
 import 'package:cari_tim_flutter/ui/otp_screen.dart';
 import 'package:cari_tim_flutter/ui/profile_page.dart';
+import 'package:cari_tim_flutter/ui/project_discovery.dart';
 import 'package:cari_tim_flutter/ui/setting_screen.dart';
 import 'package:cari_tim_flutter/ui/splash_screen.dart';
 import 'package:cari_tim_flutter/ui/edit_profile.dart';
