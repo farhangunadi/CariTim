@@ -1,6 +1,10 @@
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:cari_tim_flutter/model/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:cari_tim_flutter/ui/home_screen.dart';
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({Key? key}) : super(key: key);
@@ -10,6 +14,18 @@ class CreateProjectScreen extends StatefulWidget {
 }
 
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
+  TextEditingController titleController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
+  TextEditingController startDateController = new TextEditingController();
+  TextEditingController endDateController = new TextEditingController();
+  TextEditingController positionController = new TextEditingController();
+  TextEditingController jobDescriptionController = new TextEditingController();
+  TextEditingController amountController = new TextEditingController();
+
+  String message = '';
+
+  String typeValue = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +116,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     items: [
                       "Bussines project",
                       "Competition Project",
+                      "IT Project",
                       "Other Project"
                     ],
                     validator: (item) {
@@ -109,7 +126,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                         return null;
                     },
                     itemAsString: (item) => item.toString(),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      typeValue = value.toString();
+                    },
                     dropdownSearchDecoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
                         vertical: 0,
@@ -127,7 +146,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      hintText: "Contest Project",
+                      hintText: "Business Project, Competition Project, etc",
                       hintStyle: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
@@ -140,7 +159,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: "Title",
+                      text: "Project Title",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -162,15 +181,15 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: 7,
                   ),
                   TextFormField(
-                    // controller: _judulController,
+                    controller: titleController,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
+                        return "Required Field";
                       }
                       return null;
                     },
                     decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
+                      hintText: "My Business Project",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -196,130 +215,29 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: "Notes",
+                      text: "Project Description",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         color: Color(0xff515151),
                       ),
-                      children: [
-                        TextSpan(
-                          text: "*",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                   SizedBox(
                     height: 7,
                   ),
                   TextFormField(
-                    // controller: _judulController,
+                    controller: descriptionController,
                     maxLines: 5,
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value!.trim().isEmpty) {
+                    //     return "Judul harus diisi";
+                    //   }
+                    //   return null;
+                    // },
                     decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                      contentPadding: EdgeInsets.all(10),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 13,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Institution",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: Color(0xff515151),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  TextFormField(
-                    // controller: _judulController,
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                      contentPadding: EdgeInsets.all(10),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 13,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Department",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: Color(0xff515151),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  TextFormField(
-                    // controller: _judulController,
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
+                      hintText:
+                          "I am starting a new business and i am looking for a web developer to build my business website",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -367,15 +285,71 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: 7,
                   ),
                   TextFormField(
-                    // controller: _judulController,
+                    controller: positionController,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
+                        return "Required Field";
                       }
                       return null;
                     },
                     decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
+                      hintText: "Web Developer",
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 13,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "Job Description",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: Color(0xff515151),
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 7,
+                  ),
+                  TextFormField(
+                    controller: jobDescriptionController,
+                    // validator: (value) {
+                    //   if (value!.trim().isEmpty) {
+                    //     return "Required Field";
+                    //   }
+                    //   return null;
+                    // },
+                    decoration: InputDecoration(
+                      hintText: "Build an e-commerce web",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -422,21 +396,26 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   SizedBox(
                     height: 7,
                   ),
-                  DropdownSearch<int>(
-                    items: [1, 2, 3, 4, 5, 6, 7, 8],
-                    validator: (item) {
-                      if (item == null)
-                        return "Required field";
-                      else
-                        return null;
+                  TextFormField(
+                    controller: amountController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return "Required Field";
+                      }
+                      return null;
                     },
-                    itemAsString: (item) => item.toString(),
-                    onChanged: (value) {},
-                    dropdownSearchDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 0,
-                        horizontal: 10,
+                    decoration: InputDecoration(
+                      hintText: "2",
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.grey,
                       ),
+                      contentPadding: EdgeInsets.all(10),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
@@ -449,12 +428,6 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      hintText: "Amount of people",
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),
                     ),
                   ),
                   SizedBox(
@@ -462,7 +435,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: "Date of Project",
+                      text: "Project Start Date",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -470,7 +443,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                       ),
                       children: [
                         TextSpan(
-                          text: "*",
+                          text: "",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -484,15 +457,97 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: 7,
                   ),
                   TextFormField(
-                    // controller: _judulController,
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Judul harus diisi";
-                      }
-                      return null;
+                    controller: startDateController,
+                    onTap: () async {
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(new FocusNode());
+
+                      date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100));
+
+                      startDateController.text = DateFormat.yMd().format(date!);
                     },
+                    // validator: (value) {
+                    //   if (value!.trim().isEmpty) {
+                    //     return "Required field";
+                    //   }
+                    //   return null;
+                    // },
                     decoration: InputDecoration(
-                      hintText: "Silahkan isi bos -FE CARITIM",
+                      hintText: DateFormat.yMd().format(DateTime.now()),
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                      suffixIcon: Icon(Icons.calendar_today),
+                      contentPadding: EdgeInsets.all(10),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 13,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "Project End Date",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: Color(0xff515151),
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 7,
+                  ),
+                  TextFormField(
+                    controller: endDateController,
+                    onTap: () async {
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(new FocusNode());
+
+                      date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now().add(Duration(days: 30)),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100));
+
+                      endDateController.text = DateFormat.yMd().format(date!);
+                    },
+                    // validator: (value) {
+                    //   if (value!.trim().isEmpty) {
+                    //     return "Required field";
+                    //   }
+                    //   return null;
+                    // },
+                    decoration: InputDecoration(
+                      hintText: DateFormat.yMd()
+                          .format(DateTime.now().add(Duration(days: 30))),
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -527,7 +582,82 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           style: TextButton.styleFrom(
             backgroundColor: Color(0xff485696),
           ),
-          onPressed: () {},
+          onPressed: () async {
+            var title = titleController.text;
+            var description = descriptionController.text;
+            var start_date = startDateController.text;
+            var end_date = endDateController.text;
+            var userId = '619915eb098fd884510a8f0a';
+            var position = positionController.text;
+            var jobDescription = jobDescriptionController.text;
+            var amount = amountController.text;
+            var token =
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxOTkxNWViMDk4ZmQ4ODQ1MTBhOGYwYSIsImZpcnN0X25hbWUiOiJiYWdhcyIsInN1cm5hbWUiOiJmaXJkYXVzIiwiZW1haWwiOiJiYWdhcy5rdGJmZmhAZ21haWwuY29tIiwiZW1haWxfY29uZmlybWVkIjp0cnVlfSwiaWF0IjoxNjM4Nzk2NjIxLCJleHAiOjE2NDEzODg2MjF9.SNRCX714Rgr8RqFZgK5fN3PRwH1A5ubwFVgM3AMnSvc';
+            setState(() {
+              message = 'Please Wait...';
+            });
+            var rsp = await createVacancy(
+                title,
+                description,
+                typeValue,
+                start_date,
+                end_date,
+                userId,
+                position,
+                jobDescription,
+                amount,
+                token);
+            print(rsp);
+            if (rsp.containsKey('data')) {
+              setState(() {
+                message = 'Project Published';
+              });
+              if (rsp['data'] != null) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // return object of type Dialog
+                    return AlertDialog(
+                      title: new Text("Project Published"),
+                      actions: <Widget>[
+                        // usually buttons at the bottom of the dialog
+                        new TextButton(
+                          child: new Text("Close"),
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomeScreen();
+                            }));
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            } else {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  // return object of type Dialog
+                  return AlertDialog(
+                    title: new Text("Open Project Failed"),
+                    content: new Text(
+                        "Something went wrong, please try again later!"),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      new TextButton(
+                        child: new Text("Close"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
           child: Text(
             "Publish",
             style: TextStyle(

@@ -1,8 +1,10 @@
 import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 String url = 'http://api-caritim.herokuapp.com';
+
 Future loginUser(String email, String password) async {
   final response = await http.post(Uri.parse(url + '/users/login'),
       headers: {"Accept": "Application/json"},
@@ -30,6 +32,35 @@ Future verifyOTP(String code) async {
     "Accept": "Application/json"
   }, body: {
     'code': code,
+  });
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
+}
+
+Future createVacancy(
+    String title,
+    String description,
+    String type,
+    String start_date,
+    String end_date,
+    String user_id,
+    String position,
+    String job_description,
+    String amount,
+    String token) async {
+  final response = await http.post(Uri.parse(url + '/vacancys'), headers: {
+    "Accept": "Application/json",
+    "Authorization": "Bearer " + token
+  }, body: {
+    'title': title, 
+    'description': description,
+    'type': type,
+    'start_date': start_date,
+    'end_date': end_date,
+    'user_id': user_id,
+    'position': position,
+    'job_description': job_description,
+    'amount': amount
   });
   var convertedDatatoJson = jsonDecode(response.body);
   return convertedDatatoJson;
