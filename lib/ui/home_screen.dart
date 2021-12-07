@@ -1,12 +1,15 @@
+import 'package:cari_tim_flutter/ui/ProjectDiscovery2.dart';
+import 'package:cari_tim_flutter/ui/auth_screen.dart';
 import 'package:cari_tim_flutter/ui/create_project_screen.dart';
 import 'package:cari_tim_flutter/ui/notification_screen.dart';
 import 'package:cari_tim_flutter/ui/profile_page.dart';
 import 'package:cari_tim_flutter/ui/search_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, name, data, dataDB}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -14,6 +17,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController = ScrollController();
+  late SharedPreferences sharedPreferences;
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => AuthScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // init();
+  }
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
@@ -47,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       } else if (index == 1) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NotificationScreen()),
+          MaterialPageRoute(builder: (context) => ProjectDisc2()),
         );
       } else if (index == 2) {
         Navigator.push(
@@ -100,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Hello James!",
+                                "Hello Farhan",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 24,
