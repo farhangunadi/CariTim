@@ -1,9 +1,34 @@
 import 'package:cari_tim_flutter/ui/edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late SharedPreferences sharedPreferences;
+  String name = "";
+  String id = "";
+
+  void getPreference() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = sharedPreferences.getString("name");
+      id = sharedPreferences.getString("id");
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Farhan Gunadi",
+                          name,
                           style: TextStyle(
                               fontSize: 25,
                               color: CColor.whiteColor,
@@ -49,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "ID : 140810190009",
+                          id,
                           style: TextStyle(
                             fontSize: 15,
                             color: Color(0xFFFFFF).withOpacity(0.5),
@@ -79,7 +104,10 @@ class ProfilePage extends StatelessWidget {
                             ],
                           ),
                           child: TextButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.setString('id', id);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

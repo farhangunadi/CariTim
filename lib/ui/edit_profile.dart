@@ -1,6 +1,7 @@
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -11,6 +12,16 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController dateCtl = TextEditingController();
+
+  late SharedPreferences sharedPreferences;
+  String id = "";
+
+  void getPreference() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      id = sharedPreferences.getString("id");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +82,7 @@ class _EditProfileState extends State<EditProfile> {
                               children: [
                                 Align(
                                   alignment: Alignment.topLeft,
-                                  child: Text("Your name"),
+                                  child: Text("First name"),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -88,7 +99,44 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                   child: TextFormField(
                                     decoration: InputDecoration(
-                                      hintText: "Name",
+                                      hintText: "Your First Name",
+                                      filled: true,
+                                      fillColor: CColor.whiteColor,
+                                      hintStyle: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 11,
+                                        color: Color(0xff959595),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(7),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text("Surname"),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.15),
+                                        blurRadius: 17,
+                                      ),
+                                    ],
+                                  ),
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      hintText: "Your Surname",
                                       filled: true,
                                       fillColor: CColor.whiteColor,
                                       hintStyle: TextStyle(
@@ -160,7 +208,7 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,
-                                  child: Text("Email"),
+                                  child: Text("Job"),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -177,7 +225,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                   child: TextFormField(
                                     decoration: InputDecoration(
-                                      hintText: "Email",
+                                      hintText: "Your Job",
                                       filled: true,
                                       fillColor: CColor.whiteColor,
                                       hintStyle: TextStyle(

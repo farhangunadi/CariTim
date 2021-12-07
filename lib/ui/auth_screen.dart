@@ -1,4 +1,3 @@
-import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:cari_tim_flutter/ui/otp_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
@@ -17,8 +16,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   bool _obscurePassword = true;
   bool _isLoading = false;
-  late DataModel _dataModel;
-  late SharedPreferences localStorage;
 
   // Future init() async {
   //   localStorage = await SharedPreferences.getInstance();
@@ -272,7 +269,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                                         await SharedPreferences
                                                             .getInstance();
                                                     sharedPreferences.setString(
-                                                        'token', rsp['token']);
+                                                        'token',
+                                                        rsp['data']['token']);
+                                                    sharedPreferences.setString(
+                                                        'name',
+                                                        rsp['data']['user']
+                                                            ['first_name']);
+                                                    sharedPreferences.setString(
+                                                        'id',
+                                                        rsp['data']['user']
+                                                            ['_id']);
                                                     Navigator.of(context)
                                                         .pushAndRemoveUntil(
                                                             MaterialPageRoute(

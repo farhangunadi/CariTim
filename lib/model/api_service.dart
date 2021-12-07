@@ -37,6 +37,21 @@ Future verifyOTP(String code) async {
   return convertedDatatoJson;
 }
 
+Future editProfile(String id, String fname, String sname, String birthDate,
+    String job, String phoneNumber) async {
+  final response = await http.patch(Uri.parse(url + '/users/' + id), headers: {
+    "Accept": "Application/json"
+  }, body: {
+    'first_name': fname,
+    'surname': sname,
+    'birth_date': birthDate,
+    'job': job,
+    'phone_number': phoneNumber
+  });
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
+}
+
 Future createVacancy(
     String title,
     String description,
@@ -52,7 +67,7 @@ Future createVacancy(
     "Accept": "Application/json",
     "Authorization": "Bearer " + token
   }, body: {
-    'title': title, 
+    'title': title,
     'description': description,
     'type': type,
     'start_date': start_date,

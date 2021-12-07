@@ -4,12 +4,13 @@ import 'package:cari_tim_flutter/ui/create_project_screen.dart';
 import 'package:cari_tim_flutter/ui/notification_screen.dart';
 import 'package:cari_tim_flutter/ui/profile_page.dart';
 import 'package:cari_tim_flutter/ui/search_screen.dart';
+import 'package:cari_tim_flutter/ui/splash_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, name, data, dataDB}) : super(key: key);
+  const HomeScreen({Key? key, name, data}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -18,6 +19,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController = ScrollController();
   late SharedPreferences sharedPreferences;
+  String name = "";
+  String token = "";
+  String id = "";
+
+  void getPreference() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = sharedPreferences.getString("name");
+      token = sharedPreferences.getString("token");
+      id = sharedPreferences.getString("id");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+    getPreference();
+  }
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -26,12 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
           MaterialPageRoute(builder: (BuildContext context) => AuthScreen()),
           (Route<dynamic> route) => false);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // init();
   }
 
   int _selectedIndex = 0;
@@ -119,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Hello Farhan",
+                                ("Hello " + name),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 24,
@@ -141,7 +155,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         RawMaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            SharedPreferences sharedPreferences =
+                                await SharedPreferences.getInstance();
+                            sharedPreferences.setString('id', id);
+                            sharedPreferences.setString('name', name);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
