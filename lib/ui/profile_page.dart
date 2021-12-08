@@ -1,4 +1,6 @@
+import 'package:cari_tim_flutter/ui/auth_screen.dart';
 import 'package:cari_tim_flutter/ui/edit_profile.dart';
+import 'package:cari_tim_flutter/ui/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,12 +16,14 @@ class _ProfilePageState extends State<ProfilePage> {
   late SharedPreferences sharedPreferences;
   String name = "";
   String id = "";
+  String token = "";
 
   void getPreference() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       name = sharedPreferences.getString("name");
       id = sharedPreferences.getString("id");
+      token = sharedPreferences.getString("token");
     });
   }
 
@@ -55,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     color: CColor.orangeColor,
                     width: MediaQuery.of(context).size.width,
-                    height: 250,
+                    height: 290,
                     child: Column(
                       children: [
                         Padding(
@@ -78,6 +82,31 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: TextStyle(
                             fontSize: 15,
                             color: Color(0xFFFFFF).withOpacity(0.5),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Container(
+                            width: 90,
+                            color: Colors.red,
+                            child: TextButton(
+                                onPressed: () async {
+                                  SharedPreferences sharedPreferences =
+                                      await SharedPreferences.getInstance();
+                                  sharedPreferences.clear();
+                                  sharedPreferences.commit();
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              AuthScreen()),
+                                      (Route<dynamic> route) => false);
+                                },
+                                child: Text(
+                                  "Logout",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
                         )
                       ],
@@ -108,6 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               SharedPreferences sharedPreferences =
                                   await SharedPreferences.getInstance();
                               sharedPreferences.setString('id', id);
+                              sharedPreferences.setString('token', token);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -399,7 +429,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.setString('id', id);
+                              sharedPreferences.setString('token', token);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingScreen()),
+                              );
+                            },
                             style: TextButton.styleFrom(
                               backgroundColor: CColor.whiteColor,
                               shape: RoundedRectangleBorder(

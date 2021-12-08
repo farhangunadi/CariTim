@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       name = sharedPreferences.getString("name");
       token = sharedPreferences.getString("token");
       id = sharedPreferences.getString("id");
+      token = sharedPreferences.getString("token");
     });
   }
 
@@ -160,6 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 await SharedPreferences.getInstance();
                             sharedPreferences.setString('id', id);
                             sharedPreferences.setString('name', name);
+                            sharedPreferences.setString('token', token);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

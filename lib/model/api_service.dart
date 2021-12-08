@@ -38,9 +38,10 @@ Future verifyOTP(String code) async {
 }
 
 Future editProfile(String id, String fname, String sname, String birthDate,
-    String job, String phoneNumber) async {
+    String job, String phoneNumber, String token) async {
   final response = await http.patch(Uri.parse(url + '/users/' + id), headers: {
-    "Accept": "Application/json"
+    "Accept": "Application/json",
+    "Authorization": "Bearer " + token
   }, body: {
     'first_name': fname,
     'surname': sname,

@@ -1,6 +1,7 @@
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -10,8 +11,12 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-
-  List<String> _titleList = ["Privacy Policy", "Terms of Service", "Information", "Language"];
+  List<String> _titleList = [
+    "Privacy Policy",
+    "Terms of Service",
+    "Information",
+    "Language"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back,
                         color: CColor.whiteColor,
@@ -83,10 +90,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         tapBodyToCollapse: true,
                         tapBodyToExpand: true,
                         tapHeaderToExpand: true,
-                        bodyAlignment:
-                        ExpandablePanelBodyAlignment.center,
-                        headerAlignment:
-                        ExpandablePanelHeaderAlignment.center,
+                        bodyAlignment: ExpandablePanelBodyAlignment.center,
+                        headerAlignment: ExpandablePanelHeaderAlignment.center,
                       ),
                       header: Text(
                         _titleList[index],
@@ -102,8 +107,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: Text(
                           "Setter",
                           style: TextStyle(
-                            color:
-                            Color(0xff27292C).withOpacity(0.57),
+                            color: Color(0xff27292C).withOpacity(0.57),
                             fontWeight: FontWeight.w500,
                             fontSize: 11,
                           ),
@@ -115,11 +119,15 @@ class _SettingScreenState extends State<SettingScreen> {
                 separatorBuilder: (context, index) {
                   return Column(
                     children: [
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       Divider(
                         color: Color(0xff515151).withOpacity(0.34),
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                     ],
                   );
                 },
