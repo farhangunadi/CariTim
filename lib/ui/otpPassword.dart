@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
 import 'package:cari_tim_flutter/ui/auth_screen.dart';
-import 'package:cari_tim_flutter/ui/changePass.dart';
+// import 'package:cari_tim_flutter/ui/changePass.dart';
 import 'package:cari_tim_flutter/ui/home_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
