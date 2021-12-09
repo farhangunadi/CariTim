@@ -1,4 +1,5 @@
 import 'package:cari_tim_flutter/ui/auth_screen.dart';
+import 'package:cari_tim_flutter/ui/emailRequest.dart';
 import 'package:cari_tim_flutter/ui/get_started_screen.dart';
 import 'package:cari_tim_flutter/ui/home_screen.dart';
 import 'package:cari_tim_flutter/ui/intro_screen.dart';
