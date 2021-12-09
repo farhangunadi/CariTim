@@ -38,6 +38,25 @@ Future verifyOTP(String code) async {
   return convertedDatatoJson;
 }
 
+Future verifyOTPpass(String email) async {
+  final response =
+      await http.post(Uri.parse(url + '/users/password/otp'), headers: {
+    "Accept": "Application/json"
+  }, body: {
+    'email': email,
+  });
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
+}
+
+Future changePass(String code, String pass) async {
+  final response = await http.post(Uri.parse(url + '/users/password/change'),
+      headers: {"Accept": "Application/json"},
+      body: {'code': code, 'new_password': pass});
+  var convertedDatatoJson = jsonDecode(response.body);
+  return convertedDatatoJson;
+}
+
 Future editProfile(String id, String fname, String sname, String birthDate,
     String job, String phoneNumber, String token) async {
   final response = await http.patch(Uri.parse(url + '/users/' + id), headers: {

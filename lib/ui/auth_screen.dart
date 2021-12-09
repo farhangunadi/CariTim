@@ -1,3 +1,4 @@
+import 'package:cari_tim_flutter/ui/emailRequest.dart';
 import 'package:cari_tim_flutter/ui/otp_screen.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
@@ -230,7 +231,13 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                                 MainAxisAlignment.end,
                                             children: [
                                               TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) {
+                                                    return EmailReq();
+                                                  }));
+                                                },
                                                 child: Text(
                                                   "Forgot Password?",
                                                   style: TextStyle(
