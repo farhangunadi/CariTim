@@ -44,16 +44,6 @@ List<Vacancy> vacancyFromJson(String str) =>
     List<Vacancy>.from(json.decode(str).map((x) => Vacancy.fromMap(x)));
 
 class Vacancy {
-  String title;
-  String description;
-  String type;
-  String start_date;
-  String end_date;
-  String user_id;
-  String position;
-  String job_description;
-  int amount;
-
   Vacancy({
     required this.title,
     required this.description,
@@ -65,6 +55,16 @@ class Vacancy {
     required this.job_description,
     required this.amount,
   });
+
+  String title;
+  String description;
+  String type;
+  String start_date;
+  String end_date;
+  String user_id;
+  String position;
+  String job_description;
+  int amount;
 
   // Album({
   //   required this.userId,
@@ -83,4 +83,16 @@ class Vacancy {
       job_description: json["job_description"],
       amount: json["amount"],
   );
+
+  // Map<String, dynamic> toJson() => {
+  //   "title": title,
+  //   "description": description,
+  //   "type": type,
+  //   "start_date": start_date,
+  //   "end_date": end_date,
+  //   "user_id": user_id,
+  //   "position": position,
+  //   "job_description": job_description,
+  //   "amount": amount,
+  // };
 }

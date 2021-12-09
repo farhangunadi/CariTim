@@ -104,7 +104,7 @@ Future createVacancy(
 
 Future<List<Vacancy>> fetchVacancys() async {
   final response = await http
-      .get(Uri.parse(url + '/vacancys'));
+      .get(Uri.parse('http://api-caritim.herokuapp.com/vacancys'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,

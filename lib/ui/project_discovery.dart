@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:cari_tim_flutter/model/api_service.dart';
 
+
+
 class ProjectDiscovery extends StatefulWidget {
   const ProjectDiscovery({Key? key}) : super(key: key);
 
@@ -75,14 +77,13 @@ class _ProjectDiscoveryState extends State<ProjectDiscovery> {
                     if (snapshot.hasData) {
                       return ListView.builder(
                           padding: EdgeInsets.all(20),
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (BuildContext context, int index) =>Container(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => Container(
                             child: Container(
-                                color: CColor.orangeColor,
                                 margin: EdgeInsets.all(20),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
+                                  color: CColor.orangeColor,
                                     // OutlineInputBorder(
                                     //   borderSide:
                                     //     // borderRadius: BorderRadius.circular(20),
@@ -94,19 +95,19 @@ class _ProjectDiscoveryState extends State<ProjectDiscovery> {
                                 children: [
                                   ListTile(
                                     title: Text(
-                                      snapshot.data[index]['title'],
+                                      "${snapshot.data![index].title}",
                                       style: TextStyle(
                                           color: CColor.whiteColor,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20),
                                     ),
                                     subtitle: Text(
-                                        snapshot.data[index]['type'],
+                                      "${snapshot.data![index].type}",
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20),
-                                    child: Text("Position : " +  snapshot.data[index]['position'],
+                                    child: Text("Position : " +  "${snapshot.data![index].position}",
                                         style: TextStyle(color: CColor.whiteColor),
                                         textAlign: TextAlign.left),
                                   ),
