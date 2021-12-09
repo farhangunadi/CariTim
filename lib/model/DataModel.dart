@@ -39,3 +39,48 @@ class DataModel {
         "code": code,
       };
 }
+
+List<Vacancy> vacancyFromJson(String str) =>
+    List<Vacancy>.from(json.decode(str).map((x) => Vacancy.fromMap(x)));
+
+class Vacancy {
+  String title;
+  String description;
+  String type;
+  String start_date;
+  String end_date;
+  String user_id;
+  String position;
+  String job_description;
+  int amount;
+
+  Vacancy({
+    required this.title,
+    required this.description,
+    required this.type,
+    required this.start_date,
+    required this.end_date,
+    required this.user_id,
+    required this.position,
+    required this.job_description,
+    required this.amount,
+  });
+
+  // Album({
+  //   required this.userId,
+  //   required this.id,
+  //   required this.title,
+  // });
+
+  factory Vacancy.fromMap(Map<String, dynamic> json) => Vacancy(
+      title: json["title"],
+      description: json["description"],
+      type: json["type"],
+      start_date: json["start_date"],
+      end_date: json["end_date"],
+      user_id: json["user_id"],
+      position: json["position"],
+      job_description: json["job_description"],
+      amount: json["amount"],
+  );
+}

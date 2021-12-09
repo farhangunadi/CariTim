@@ -2,6 +2,7 @@ import 'package:cari_tim_flutter/model/DataModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'dart:async';
 
 String url = 'http://api-caritim.herokuapp.com';
 
@@ -80,4 +81,20 @@ Future createVacancy(
   });
   var convertedDatatoJson = jsonDecode(response.body);
   return convertedDatatoJson;
+}
+
+Future<List<Vacancy>> fetchVacancys() async {
+  final response = await http
+      .get(Uri.parse(url + '/vacancys'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<Vacancy>((json) => Vacancy.fromMap(json)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to get all Vacancys');
+  }
 }
