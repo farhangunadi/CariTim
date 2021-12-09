@@ -4,6 +4,8 @@ import 'package:cari_tim_flutter/ui/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cari_tim_flutter/util/c_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cari_tim_flutter/model/DataModel.dart';
+import 'package:cari_tim_flutter/model/api_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
