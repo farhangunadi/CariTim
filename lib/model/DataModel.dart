@@ -84,15 +84,33 @@ class Vacancy {
       amount: json["amount"],
   );
 
-  // Map<String, dynamic> toJson() => {
-  //   "title": title,
-  //   "description": description,
-  //   "type": type,
-  //   "start_date": start_date,
-  //   "end_date": end_date,
-  //   "user_id": user_id,
-  //   "position": position,
-  //   "job_description": job_description,
-  //   "amount": amount,
-  // };
+}
+
+List<Applicant> applicantFromJson(String str) =>
+    List<Applicant>.from(json.decode(str).map((x) => Applicant.fromMap(x)));
+
+class Applicant {
+  Applicant({
+    required this.vacancy_id,
+    required this.message,
+    required this.status,
+    required this.amount,
+
+  });
+
+  String vacancy_id;
+  String message;
+  String status;
+  String amount;
+
+
+
+  factory Applicant.fromMap(Map<String, dynamic> json) => Applicant(
+    vacancy_id: json["vacancy_id"],
+    message: json["message"],
+    status: json["status"],
+    amount: json["amount"],
+
+  );
+
 }

@@ -117,3 +117,50 @@ Future<List<Vacancy>> fetchVacancys() async {
     throw Exception('Failed to get all Vacancys');
   }
 }
+
+Future<List<Vacancy>> fetchVacancyByUserID() async {
+  final response = await http
+      .get(Uri.parse('http://api-caritim.herokuapp.com/vacancys/user/'+'619915eb098fd884510a8f0a'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<Vacancy>((json) => Vacancy.fromMap(json)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to get all Vacancys');
+  }
+}
+
+Future<List<Applicant>> fetchApplicants() async {
+  final response = await http
+      .get(Uri.parse(url + '/applicants'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<Applicant>((json) => Applicant.fromMap(json)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to get all Applicants');
+  }
+}
+Future<List<Applicant>> fetchApplicantByUserID() async {
+  final response = await http
+      .get(Uri.parse(url + '/applicants/user/' + '619915eb098fd884510a8f0a'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+    return parsed.map<Applicant>((json) => Applicant.fromMap(json)).toList();
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to get all Applicants');
+  }
+}
